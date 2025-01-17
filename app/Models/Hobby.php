@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Hobby extends Model
 {
@@ -12,5 +10,10 @@ class Hobby extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function persones()
+    {
+        return $this->belongsToMany(Person::class, 'hobby_person', 'hobby_id', 'person_id');
+    }
 }
 

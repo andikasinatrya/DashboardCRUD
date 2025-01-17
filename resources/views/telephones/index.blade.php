@@ -24,6 +24,7 @@
                     <th class="py-3 px-6 text-left">ID</th>
                     <th class="py-3 px-6 text-left">Nama</th>
                     <th class="py-3 px-6 text-left">NISN</th>
+                    <th class="py-3 px-6 text-left">Hobi</th>
                     <th class="py-3 px-6 text-center">Actions</th>
                 </tr>
             </thead>
@@ -33,6 +34,11 @@
                     <td class="py-3 px-6">{{ $loop->iteration }}</td>
                     <td class="py-3 px-6">{{ $person->name }}</td>
                     <td class="py-3 px-6">{{ $person->nisn }}</td>
+                    <td class="py-3 px-6">
+                        @foreach ($person->hobbies as $hobby)
+                            <span class="inline-block bg-blue-100 text-blue-600 py-1 px-3 rounded-full text-sm">{{ $hobby->name }}</span>
+                        @endforeach
+                    </td>
                     <td class="py-3 px-6 text-center space-x-2">
                         <a href="{{ route('persones.show', $person->id) }}" class="text-yellow-600 hover:text-yellow-700 font-semibold">Detail</a>
                         <a href="{{ route('persones.edit', $person->id) }}" class="text-green-600 hover:text-green-700 font-semibold">Edit</a>
@@ -54,5 +60,4 @@
         {{ $persons->links('pagination::tailwind') }}
     </div>
 </div>
-
 @endsection

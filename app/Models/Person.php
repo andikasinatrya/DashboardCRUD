@@ -14,5 +14,10 @@ class Person extends Model
     {
         return $this->hasMany(Telephone::class, 'person_id');
     }
+
+    public function hobbies()
+    {
+        return $this->belongsToMany(Hobby::class, 'hobby_person', 'person_id', 'hobby_id');
+    }
 }
 

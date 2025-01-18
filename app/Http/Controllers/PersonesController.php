@@ -14,9 +14,10 @@ class PersonesController extends Controller
      */
     public function index()
     {
-        $persons = Person::with('hobbies')->paginate(5);
-        return view('telephones.index', compact('persons')); 
+        $persons = Person::with('hobbies', 'nisn')->paginate(5);
+        return view('telephones.index', compact('persons'));
     }
+    
     
 
     /**
@@ -35,18 +36,21 @@ class PersonesController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3|max:255',
-            'nisn' => 'required|max:20|unique:persones,nisn',
+            'nisn' => 'required|numeric|unique:nisns,nisn',
         ], [
             'name.required' => 'Nama tidak boleh kosong',
             'name.min' => 'Nama minimal 3 karakter',
             'name.max' => 'Nama maksimal 255 karakter',
             'nisn.required' => 'NISN tidak boleh kosong',
-            'nisn.max' => 'NISN maksimal 20 karakter',
+            'nisn.numeric' => 'NISN hanya boleh berisi angka',
             'nisn.unique' => 'NISN sudah ada',
         ]);
     
         $person = Person::create([
             'name' => $request->input('name'),
+        ]);
+    
+        $person->nisn()->create([
             'nisn' => $request->input('nisn'),
         ]);
     
@@ -56,6 +60,7 @@ class PersonesController extends Controller
     
         return redirect()->route('persones.index')->with('success', 'Data berhasil ditambahkan');
     }
+    
     
 
     /**
@@ -73,14 +78,13 @@ class PersonesController extends Controller
      */
     public function edit(string $id)
     {
-        $person = Person::findOrFail($id);
-    
+        $person = Person::with('nisn', 'hobbies')->findOrFail($id);
         $telephones = Telephone::where('person_id', $id)->get();
-
         $hobbies = Hobby::all();
     
         return view('telephones.edit', compact('person', 'telephones', 'hobbies'));
     }
+    
     
 
     /**
@@ -90,21 +94,25 @@ class PersonesController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3|max:255',
-            'nisn' => 'required|max:20|unique:persones,nisn,' . $id,
+            'nisn' => 'required|numeric|unique:nisns,nisn,' . $id,
         ], [
             'name.required' => 'Nama tidak boleh kosong',
             'name.min' => 'Nama minimal 3 karakter',
             'name.max' => 'Nama maksimal 255 karakter',
             'nisn.required' => 'NISN tidak boleh kosong',
-            'nisn.max' => 'NISN maksimal 20 karakter',
+            'nisn.numeric' => 'NISN hanya boleh berisi angka',
             'nisn.unique' => 'NISN sudah ada',
         ]);
     
         $person = Person::findOrFail($id);
         $person->update([
             'name' => $request->input('name'),
-            'nisn' => $request->input('nisn'),
         ]);
+    
+        $person->nisn()->updateOrCreate(
+            ['person_id' => $person->id],
+            ['nisn' => $request->input('nisn')]
+        );
     
         if ($request->has('hobbies')) {
             $person->hobbies()->sync($request->hobbies);
@@ -114,6 +122,7 @@ class PersonesController extends Controller
     
         return redirect()->route('persones.index')->with('success', 'Data berhasil diperbarui');
     }
+    
     
 
     /**

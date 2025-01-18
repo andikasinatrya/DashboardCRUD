@@ -29,12 +29,12 @@ class TelephoneController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'telephone_number' => 'required|unique:telephones,telephone_number|max:12',
+            'telephone_number' => 'required|numeric|unique:telephones,telephone_number',
             'person_id' => 'required|exists:persones,id',
         ], [
             'telephone_number.required' => 'Nomor Telepon Wajib Diisi',
+            'telephone_number.numeric' => 'Nomor Telepon hanya boleh berisi angka',
             'telephone_number.unique' => 'Nomor telepon sudah ada',
-            'telephone_number.max' => 'Maksimal karakter adalah 13'
         ]);
 
         Telephone::create([
@@ -68,11 +68,11 @@ class TelephoneController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'telephone_number' => 'required|unique:telephones,telephone_number|max:13',
+            'telephone_number' => 'required|numeric|unique:telephones,telephone_number',
         ], [
             'telephone_number.required' => 'Nomor Telepon Wajib Diisi',
+            'telephone_number.numeric' => 'Nomor Telepon hanya boleh berisi angka',
             'telephone_number.unique' => 'Nomor telepon sudah ada',
-            'telephone_number.max' => 'Maksimal karakter adalah 13'
         ]);
 
         $data = [

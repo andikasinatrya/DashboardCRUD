@@ -2,6 +2,14 @@
 
 @section('content')
     <div class="bg-white shadow-lg rounded-lg p-6">
+        <div class="mb-4 text-right">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                    Logout
+                </button>
+            </form>
+        </div>
         <h2 class="text-xl font-bold mb-4">Hobby List</h2>
 
         @if (session('success'))
@@ -35,5 +43,8 @@
                 @endforeach
             </tbody>
         </table>
+       <button class="bg-white text-blue-600 px-4 py-2 rounded-lg shadow-md hover:bg-gray-200"><a href="{{ route('persones.index') }}">
+        Go To Persones
+    </a></button> 
     </div>
 @endsection

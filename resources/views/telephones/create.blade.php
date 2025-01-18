@@ -59,7 +59,6 @@
                     @endforeach
                 </div>
             </div>
-            
 
             <button 
                 type="submit" 

@@ -8,7 +8,11 @@ class Person extends Model
 {
     protected $table = 'persones';
 
-    protected $fillable = ['name', 'nisn'];
+    protected $fillable = ['name'];
+
+    public function nisn(){
+        return $this->hasOne(Nisn::class);
+    }
 
     public function telephones()
     {

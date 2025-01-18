@@ -20,12 +20,24 @@
 
         <div class="mb-4">
             <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
-            <input type="text" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="name" name="name" value="{{ $person->name }}" required>
+            <input 
+                type="text" 
+                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                id="name" 
+                name="name" 
+                value="{{ $person->name }}" 
+                required>
         </div>
 
         <div class="mb-4">
-            <label for="nisn" class="block text-sm font-medium text-gray-700">Nisn</label>
-            <input type="text" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="nisn" name="nisn" value="{{ $person->nisn }}" required>
+            <label for="nisn" class="block text-sm font-medium text-gray-700">NISN</label>
+            <input 
+                type="text" 
+                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                id="nisn" 
+                name="nisn" 
+                value="{{ $person->nisn->nisn ?? '' }}" 
+                required>
         </div>
 
         <div class="mb-4">

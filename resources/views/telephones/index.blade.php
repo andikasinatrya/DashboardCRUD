@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="container mx-auto p-6">
+    <div class="mb-4 text-right">
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                Logout
+            </button>
+        </form>
+    </div>
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Data Person</h1>
 
     <div id="flash-messages" class="mb-4">
@@ -33,7 +41,7 @@
                 <tr class="border-b border-gray-200 hover:bg-gray-100">
                     <td class="py-3 px-6">{{ $loop->iteration }}</td>
                     <td class="py-3 px-6">{{ $person->name }}</td>
-                    <td class="py-3 px-6">{{ $person->nisn }}</td>
+                    <td class="py-3 px-6">{{ $person->nisn->nisn ?? '-' }}</td>
                     <td class="py-3 px-6">
                         @foreach ($person->hobbies as $hobby)
                             <span class="inline-block bg-blue-100 text-blue-600 py-1 px-3 rounded-full text-sm">{{ $hobby->name }}</span>
@@ -55,6 +63,9 @@
             </tbody>
         </table>
     </div>
+    <button class="bg-white text-blue-600 px-4 py-2 rounded-lg shadow-md hover:bg-gray-200"><a href="{{ route('hobbies.index') }}">
+        Go To Hobbys
+    </a></button> 
 
     <div class="mt-6 flex justify-end">
         {{ $persons->links('pagination::tailwind') }}

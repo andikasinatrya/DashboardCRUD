@@ -19,7 +19,7 @@
         </div>
         <div class="p-4">
             <h5 class="text-lg font-semibold mb-2"><strong>Nama:</strong> {{ $person->name }}</h5>
-            <p class="text-sm text-gray-600 font-semibold mb-4"><strong>NISN:</strong> {{ $person->nisn }} </p>
+            <p class="text-sm text-gray-600 font-semibold mb-4"><strong>NISN:</strong> {{ $person->nisn->nisn }} </p>
 
             <h5 class="text-lg font-semibold mb-2">Nomor Telepon:</h5>
             <ul class="space-y-2">
@@ -53,7 +53,7 @@
                                     <input type="text" class="form-input mt-1 block w-full h-10 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="telephone_number" name="telephone_number" required>
                                 </div>
                                 <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded w-50 hover:bg-blue-700">Simpan</button>
-                                <a href="{{ route('persones.store', $person->id) }}" class="bg-yellow-500 text-white py-2 px-4 rounded mt-4 hover:bg-yellow-600 absolut">Selesai</a>
+                                <a href="{{ route('persones.store', $person->id) }}" class="bg-yellow-500 text-white py-2 px-4 rounded mt-4 hover:bg-yellow-600 absolut">Batal</a>
                             </form>
                         </div>
                     </div>

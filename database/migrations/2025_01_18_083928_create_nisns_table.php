@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hobby_person', function (Blueprint $table) {
-            $table->unsignedBigInteger('person_id');
-            $table->unsignedBigInteger('hobby_id');
+        Schema::create('nisns', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('person_id')->unique();
+            $table->string('nisn', 20)->unique();
+            $table->timestamps();
+
             $table->foreign('person_id')->references('id')->on('persones')->onDelete('cascade');
-            $table->foreign('hobby_id')->references('id')->on('hobbies')->onDelete('cascade');
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hobby_person');
+        Schema::dropIfExists('nisns');
     }
 };

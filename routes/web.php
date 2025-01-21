@@ -9,7 +9,6 @@ use App\Http\Controllers\AuthController;
 Route::get('/', [AuthController::class, 'showRegistrasi'])->name('home');
 
 Route::get('/registrasi', [AuthController::class, 'showRegistrasi'])->name('registrasi.show');
-Route::post('/registrasi/submit', [AuthController::class, 'submitRegistrasi'])->name('registrasi.submit');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login.show');
 Route::post('/login/submit', [AuthController::class, 'submitLogin'])

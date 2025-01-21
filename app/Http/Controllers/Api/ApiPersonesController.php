@@ -61,6 +61,11 @@ class ApiPersonesController extends Controller
             $hobbies = explode(',', $request->hobbies);
             $person->hobbies()->attach($hobbies);
         }
+
+        return response()->json(
+            new PersonesResource(true, 'Hobby created successfully', $person),
+            Response::HTTP_CREATED
+        );
     }
     
     

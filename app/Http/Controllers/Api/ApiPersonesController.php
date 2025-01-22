@@ -40,6 +40,13 @@ class ApiPersonesController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'nisn' => 'required|numeric|unique:nisns,nisn',
+        ],  [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.min' => 'Nama minimal 3 karakter',
+            'name.max' => 'Nama maksimal 255 karakter',
+            'nisn.required' => 'NISN tidak boleh kosong',
+            'nisn.numeric' => 'NISN hanya boleh berisi angka',
+            'nisn.unique' => 'NISN sudah ada',
         ]);
         
         if ($validator->fails()) {
@@ -120,6 +127,13 @@ class ApiPersonesController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'nisn' => 'required|numeric|unique:nisns,nisn,' . $person->id . ',person_id',
+        ],  [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.min' => 'Nama minimal 3 karakter',
+            'name.max' => 'Nama maksimal 255 karakter',
+            'nisn.required' => 'NISN tidak boleh kosong',
+            'nisn.numeric' => 'NISN hanya boleh berisi angka',
+            'nisn.unique' => 'NISN sudah ada',
         ]);
     
         if ($validator->fails()) {

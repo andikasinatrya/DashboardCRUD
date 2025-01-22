@@ -1,4 +1,4 @@
-@extends('hobbies.layout')
+@extends('layouts.layout')
 
 @section('content')
     <div class="bg-white shadow-lg rounded-lg p-6">

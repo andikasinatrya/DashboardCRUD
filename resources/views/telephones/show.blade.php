@@ -1,4 +1,4 @@
-@extends('telephones.layout')
+@extends('layouts.layout')
 
 @section('content')
 

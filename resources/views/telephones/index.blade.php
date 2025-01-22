@@ -1,4 +1,11 @@
-@extends('telephones.layout')
+@extends('layouts.layout')
+
+@php
+    $title = 'Persons Management';
+    $headerTitle = 'Data Person';
+    $actionUrl = route('persones.create');
+    $actionText = 'Add Person';
+@endphp
 
 @section('content')
 <div class="container mx-auto p-6">
@@ -63,9 +70,11 @@
             </tbody>
         </table>
     </div>
-    <button class="bg-white text-blue-600 px-4 py-2 rounded-lg shadow-md hover:bg-gray-200"><a href="{{ route('hobbies.index') }}">
-        Go To Hobbys
-    </a></button> 
+    <button class="bg-white text-blue-600 px-4 py-2 rounded-lg shadow-md hover:bg-gray-200">
+        <a href="{{ route('hobbies.index') }}">
+            Go To Hobbys
+        </a>
+    </button>
 
     <div class="mt-6 flex justify-end">
         {{ $persons->links('pagination::tailwind') }}

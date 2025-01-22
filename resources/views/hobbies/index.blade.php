@@ -1,4 +1,11 @@
-@extends('hobbies.layout')
+@extends('layouts.layout')
+
+@php
+    $title = 'Hobby Management';
+    $headerTitle = 'Hobby List';
+    $actionUrl = route('hobbies.create');
+    $actionText = 'Add Hobby';
+@endphp
 
 @section('content')
     <div class="bg-white shadow-lg rounded-lg p-6">
@@ -43,8 +50,10 @@
                 @endforeach
             </tbody>
         </table>
-       <button class="bg-white text-blue-600 px-4 py-2 rounded-lg shadow-md hover:bg-gray-200"><a href="{{ route('persones.index') }}">
-        Go To Persones
-    </a></button> 
+       <button class="bg-white text-blue-600 px-4 py-2 rounded-lg shadow-md hover:bg-gray-200">
+        <a href="{{ route('persones.index') }}">
+            Go To Persones
+        </a>
+    </button> 
     </div>
 @endsection

@@ -1,51 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" class="light">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Laravel 11</title>
-    @vite('resources/css/app.css')
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login Laravel 11</title>
+  <link rel="icon" type="image/png" href="{{ asset('assets/images/logo/favicon.svg') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('assets/css/rt-plugins.css') }}">
+  <link href="https://unpkg.com/aos@2.3.0/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="">
+  <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+  <script src="{{ asset('assets/js/settings.js') }}" sync></script>
 </head>
-<body class="bg-blue-100 font-sans antialiased">
-    <section class="flex items-center justify-center">
-        <div class="w-full max-w-md bg-white rounded-lg shadow-lg border border-gray-200" style="width: 40rem; margin-top: 7rem; padding: 1rem;">
-            <div class="p-8 space-y-6">
-                <h1 class="text-2xl font-bold text-center text-gray-800">Selamat Datang</h1>
-                <p class="text-center text-gray-600">Silakan login untuk mengakses aplikasi</p>
 
-                @if (session('failed'))
-                    <p class="text-red-500 text-sm text-center bg-gray-100 px-4 py-2 rounded-md">{{ session('failed') }}</p>
-                @endif
-
-                <form action="{{ route('login.submit') }}" method="POST" class="space-y-5">
-                    @csrf
-                    <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-800">Email</label>
-                        <input type="email" name="email" id="email" class="w-full bg-gray-100 border border-gray-300 text-gray-800 rounded-lg p-3 focus:ring-blue-500 focus:border-blue-500" required>
-                        @error('email')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div style="margin-top: 1rem;">
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-800">Password</label>
-                        <input type="password" name="password" id="password" placeholder="••••••••" class="w-full bg-gray-100 border border-gray-300 text-gray-800 rounded-lg p-3 focus:ring-blue-500 focus:border-blue-500" required>
-                        @error('password')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <button type="submit" class="w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3" style="background-color:dodgerblue;margin-top:1rem;">
-                        Login
-                    </button>
-                </form>
-
-                <p class="mt-6 text-center text-sm text-gray-600">
-                    Belum punya akun? <a href="{{ route('registrasi.show') }}" class="text-blue-500 hover:underline">Daftar sekarang</a>
-                </p>
-            </div>
+<body class="font-inter skin-default">
+  <div class="loginwrapper">
+    <div class="lg-inner-column">
+      <div class="left-column relative z-[1]">
+        <div class="max-w-[520px] pt-20 ltr:pl-20 rtl:pr-20">
+          
+          <h4>
+            Welcome To My Page For
+            <span class="text-slate-800 dark:text-slate-400 font-bold">
+              Login
+            </span>
+          </h4>
         </div>
-    </section>
+        <div class="absolute left-0 2xl:bottom-[-160px] bottom-[-130px] h-full w-full z-[-1]">
+          <img src="{{ asset('assets/images/auth/ils1.svg') }}" alt="" class="h-full w-full object-contain">
+        </div>
+      </div>
+      <div class="right-column relative">
+        <div class="inner-content h-full flex flex-col bg-white dark:bg-slate-800">
+          <div class="auth-box h-full flex flex-col justify-center">
+            <div class="mobile-logo text-center mb-6 lg:hidden block">
+              <a href="#">
+                <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="" class="mb-10 dark_logo">
+                <img src="{{ asset('assets/images/logo/logo-white.svg') }}" alt="" class="mb-10 white_logo">
+              </a>
+            </div>
+            <div class="text-center 2xl:mb-10 mb-4">
+              <h4 class="font-medium">Sign in</h4>
+              <div class="text-slate-500 text-base">
+                Sign in to your account to start using the application
+              </div>
+            </div>
+            <!-- BEGIN: Login Form -->
+            <form action="{{ route('login.submit') }}" method="POST" class="space-y-4">
+              @csrf
+              <div class="fromGroup">
+                <label class="block capitalize form-label">Email</label>
+                <div class="relative">
+                  <input type="email" name="email" class="form-control py-2" placeholder="Enter your email" required>
+                </div>
+              </div>
+              <div class="fromGroup">
+                <label class="block capitalize form-label">Password</label>
+                <div class="relative">
+                  <input type="password" name="password" class="form-control py-2" placeholder="Enter your password" required>
+                </div>
+              </div>
+              <div class="flex justify-between">
+                <label class="flex items-center cursor-pointer">
+                  <input type="checkbox" class="hiddens" required>
+                  <span class="text-slate-500 dark:text-slate-400 text-sm leading-6 capitalize">Keep me signed in</span>
+                </label>
+              </div>
+              <button class="btn btn-dark block w-full text-center" style="background-color: dodgerblue;">Login</button>
+            </form>
+            <!-- END: Login Form -->
+            <div class="relative border-b-[#9AA2AF] border-opacity-[16%] border-b pt-6">
+              <div class="absolute inline-block bg-white dark:bg-slate-800 dark:text-slate-400 left-1/2 top-1/2 transform -translate-x-1/2 px-4 min-w-max text-sm text-slate-500 font-normal">
+                Or continue with
+              </div>
+            </div>
+            <div class="max-w-[242px] mx-auto mt-8 w-full">
+              <ul class="flex">
+                <li class="flex-1">
+                  <a href="#" class="inline-flex h-10 w-10 bg-[#1C9CEB] text-white text-2xl flex-col items-center justify-center rounded-full">
+                    <img src="{{ asset('assets/images/icon/tw.svg') }}" alt="">
+                  </a>
+                </li>
+                <li class="flex-1">
+                  <a href="#" class="inline-flex h-10 w-10 bg-[#395599] text-white text-2xl flex-col items-center justify-center rounded-full">
+                    <img src="{{ asset('assets/images/icon/fb.svg') }}" alt="">
+                  </a>
+                </li>
+                <li class="flex-1">
+                  <a href="#" class="inline-flex h-10 w-10 bg-[#0A63BC] text-white text-2xl flex-col items-center justify-center rounded-full">
+                    <img src="{{ asset('assets/images/icon/in.svg') }}" alt="">
+                  </a>
+                </li>
+                <li class="flex-1">
+                  <a href="#" class="inline-flex h-10 w-10 bg-[#EA4335] text-white text-2xl flex-col items-center justify-center rounded-full">
+                    <img src="{{ asset('assets/images/icon/gp.svg') }}" alt="">
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="md:max-w-[345px] mx-auto font-normal text-slate-500 dark:text-slate-400 mt-12 uppercase text-sm">
+              Don’t have an account?
+              <a href="{{ route('registrasi.show') }}" class="text-slate-900 dark:text-white font-medium hover:underline">
+                Sign up
+              </a>
+            </div>
+          </div>
+          <div class="auth-footer text-center">
+            Copyright 2025, Laravel 11 Application. All Rights Reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- scripts -->
+  <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+  <script src="{{ asset('assets/js/rt-plugins.js') }}"></script>
+  <script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
+
 </html>

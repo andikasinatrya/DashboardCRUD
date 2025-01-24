@@ -2,6 +2,29 @@
 
 @section('content')
 
+<ul class="m-0 mb-5 p-0 list-none">
+    <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
+      <a href="index.html">
+        <iconify-icon icon="heroicons-outline:home"></iconify-icon>
+        <iconify-icon icon="heroicons-outline:chevron-right"
+          class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
+      </a>
+    </li>
+    <li class="inline-block relative text-sm text-primary-500 font-Inter ">
+      Persons Table
+      <iconify-icon icon="heroicons-outline:chevron-right"
+        class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
+    </li>
+    <li class="inline-block relative text-sm text-primary-500 font-Inter ">
+        Person List
+      <iconify-icon icon="heroicons-outline:chevron-right"
+        class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
+    </li>
+    <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
+    Edit Person</li>
+  </ul>
+
+
 @if ($errors->any())
     <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-lg">
         <ul>
@@ -12,14 +35,14 @@
     </div>
 @endif
 
-<div class="container mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
+<div class="container mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg dark:bg-slate-800">
     <h1 class="text-2xl font-semibold text-gray-800 mb-6">Edit Data</h1>
     <form action="{{ route('persones.update', $person->id) }}" method="POST">
         @csrf
         @method('PUT')
 
         <div class="mb-4">
-            <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
+            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-white">Nama</label>
             <input 
                 type="text" 
                 class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
@@ -30,7 +53,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="nisn" class="block text-sm font-medium text-gray-700">NISN</label>
+            <label for="nisn" class="block text-sm font-medium text-gray-700 dark:text-white">NISN</label>
             <input 
                 type="text" 
                 class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
@@ -41,7 +64,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="hobbies" class="block text-sm font-medium text-gray-700">Pilih Hobi</label>
+            <label for="hobbies" class="block text-sm font-medium text-gray-700 dark:text-white">Pilih Hobi</label>
             <div class="space-y-2">
                 @foreach ($hobbies as $hobby)
                     <div class="flex items-center">
@@ -52,7 +75,7 @@
                             id="hobby_{{ $hobby->id }}" 
                             {{ in_array($hobby->id, $person->hobbies->pluck('id')->toArray()) ? 'checked' : '' }} 
                             class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="hobby_{{ $hobby->id }}" class="ml-2 text-sm text-gray-700">
+                        <label for="hobby_{{ $hobby->id }}" class="ml-2 text-sm text-gray-700 dark:text-white">
                             {{ $hobby->name }}
                         </label>
                     </div>

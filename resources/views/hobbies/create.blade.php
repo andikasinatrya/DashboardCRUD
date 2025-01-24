@@ -1,7 +1,24 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div class="bg-white shadow-lg rounded-lg p-6">
+<ul class="m-0 mb-5 p-0 list-none">
+    <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
+      <a href="index.html">
+        <iconify-icon icon="heroicons-outline:home"></iconify-icon>
+        <iconify-icon icon="heroicons-outline:chevron-right"
+          class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
+      </a>
+    </li>
+    <li class="inline-block relative text-sm text-primary-500 font-Inter ">
+      Hobby Table
+      <iconify-icon icon="heroicons-outline:chevron-right"
+        class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
+    </li>
+    <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
+     Create Hobby</li>
+  </ul>
+
+    <div class="bg-white shadow-lg rounded-lg p-6 dark:bg-slate-800">
         <h2 class="text-xl font-bold mb-4">Add New Hobby</h2>
 
         @if ($errors->any())
@@ -14,11 +31,11 @@
             </div>
         @endif
 
-        <form action="{{ route('hobbies.store') }}" method="POST" class="space-y-4">
+        <form action="{{ route('hobbies.store') }}" method="POST" class="space-y-4 dark:bg-slate-800">
             @csrf
             <div>
-                <label for="name" class="block text-sm font-medium text-gray-700">Hobby Name</label>
-                <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter hobby name" required>
+                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-white">Hobby Name</label>
+                <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 dark:bg-slate-200 shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Enter hobby name" required>
             </div>
             <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700">
                 Save

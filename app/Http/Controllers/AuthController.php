@@ -6,7 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -45,23 +47,21 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
-    
+
         $data = $request->only('email', 'password');
-    
         $user = User::where('email', $request->email)->first();
-    
+
         if (!$user) {
             return redirect()->back()->with('failed', 'Email tidak terdaftar.');
         }
-    
+
         if (!Auth::attempt($data)) {
             return redirect()->back()->with('failed', 'Password salah.');
         }
-    
+
         $request->session()->regenerate();
         return redirect()->route('persones.index');
     }
-    
 
     public function logout(Request $request) {
         Auth::logout();
@@ -70,5 +70,43 @@ class AuthController extends Controller
 
         return redirect()->route('login.show')->with('success', 'Anda telah logout.');
     }
+
+    public function showForgotPasswordForm($token = null) {
+        return view('identity.forgot', ['token' => $token]);
+    }
     
+
+    public function processForgotPassword(Request $request) {
+        if (!$request->has('token')) {
+            $request->validate(['email' => 'required|email']);
+
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+
+            return $status === Password::RESET_LINK_SENT
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
+        }
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+            'token' => 'required'
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+                $user->save();
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('login.show')->with('success', 'Password berhasil direset.')
+            : back()->withErrors(['email' => __($status)]);
+    }
 }

@@ -64,7 +64,15 @@
                   <input type="password" name="password" class="form-control py-2" placeholder="Enter your password" required>
                 </div>
               </div>
-
+              <div class="flex justify-between">
+                <label class="flex items-center cursor-pointer">
+                  <input type="checkbox" class="hiddens">
+                  <span class="text-slate-500 dark:text-slate-400 text-sm leading-6 capitalize">Remember Me</span>
+                </label>
+                <a class="text-sm text-slate-800 dark:text-slate-400 leading-6 font-medium" href="{{ route('password.process') }}">
+                  Forgot Password?
+                </a>                
+              </div>
               <button class="btn btn-dark block w-full text-center" style="background-color: dodgerblue;">Login</button>
             </form>
             <!-- END: Login Form -->

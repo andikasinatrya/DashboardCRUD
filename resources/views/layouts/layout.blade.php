@@ -60,64 +60,28 @@
 
           <li class="sidebar-menu-title">Person Table</li>
           <li>
-            <a href="#" class="navItem">
+            <a href="{{ route('persones.index') }}" class="navItem">
                 <span class="flex items-center">
-                    <iconify-icon class="nav-icon" icon="heroicons:rectangle-stack"></iconify-icon>
+                    <iconify-icon class="nav-icon" icon="heroicons:user"></iconify-icon>
                     <span>Persones</span>
                 </span>
-                <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
             </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="{{ route('persones.index') }}">Dashboard</a>
-                </li>
-                <li>
-                    <a href="{{ route('persones.create') }}">Create</a>
-                </li>
-            </ul>
+          
         </li>
           <!-- Apps Area -->
           <li class="sidebar-menu-title">Hobbies Table</li>
         
           <li>
-            <a href="#" class="navItem">
+            <a href="{{ route('hobbies.index') }}" class="navItem">
                 <span class="flex items-center">
                     <iconify-icon class="nav-icon" icon="heroicons:rectangle-stack"></iconify-icon>
                     <span>Hobbies</span>
                 </span>
-                <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
             </a>
-            <ul class="sidebar-submenu">
-                <li>
-                    <a href="{{ route('hobbies.index') }}">Dashboard</a>
-                </li>
-                <li>
-                    <a href="{{ route('hobbies.create') }}">Create</a>
-                </li>
-               
-            </ul>
+         
         </li>
          
           <!-- Pages Area -->
-          <li class="sidebar-menu-title">PAGES</li>
-          <!-- Authentication -->
-          <li class="">
-            <a href="javascript:void(0)" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:lock-closed"></iconify-icon>
-            <span>Authentication</span>
-              </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-            </a>
-            <ul class="sidebar-submenu">
-              <li>
-                <a href="{{ route('registrasi.show') }}">Registration</a>
-              </li>
-              <li>
-                <a href="{{ route('login.show') }}">Login</a>
-              </li>
-            </ul>
-          </li>
         </ul>
       </div>
     </div>

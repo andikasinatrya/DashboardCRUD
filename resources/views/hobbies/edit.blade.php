@@ -1,6 +1,25 @@
 @extends('layouts.layout')
 
 @section('content')
+<ul class="m-0 mb-5 p-0 list-none">
+    <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
+      <a href="{{ route('hobbies.index') }}">
+        <iconify-icon icon="heroicons-outline:home"></iconify-icon>
+        <iconify-icon icon="heroicons-outline:chevron-right"
+          class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
+      </a>
+    </li>
+    <a href="{{ route('hobbies.index') }}">
+    <li class="inline-block relative text-sm text-slate-500 font-Inter ">
+      Hobby Table
+      <iconify-icon icon="heroicons-outline:chevron-right"
+        class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
+    </li>
+</a>
+    <li class="inline-block relative text-sm text-primary-500 font-Inter dark:text-primary-500">
+     Edit Hobby</li>
+  </ul>
+
     <div class="bg-white shadow-lg rounded-lg p-6 dark:bg-slate-800">
         <h2 class="text-xl font-bold mb-4">Edit Hobby</h2>
 

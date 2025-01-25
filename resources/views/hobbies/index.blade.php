@@ -2,7 +2,7 @@
 @section('content')
 <ul class="m-0 mb-5 p-0 list-none">
     <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
-      <a href="index.html">
+      <a href="{{ route('hobbies.index') }}">
         <iconify-icon icon="heroicons-outline:home"></iconify-icon>
         <iconify-icon icon="heroicons-outline:chevron-right"
           class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
@@ -13,13 +13,16 @@
       <iconify-icon icon="heroicons-outline:chevron-right"
         class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
     </li>
-    <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-      Hobby List</li>
   </ul>
   
 <div class="card">
     <header class="card-header noborder">
         <h4 class="card-title">Hobby List</h4>
+        <a href="{{ route('hobbies.create') }}" class="btn inline-flex h-12 w-12 items-center justify-center btn-primary rounded-full">
+            <span class="flex items-center">
+                <iconify-icon class="text-xl" icon="heroicons-rectangle-stack"></iconify-icon>
+            </span>
+          </a>
     </header>
     <div class="card-body px-6 pb-6"> 
         <div class="overflow-x-auto -mx-6 dashcode-data-table">

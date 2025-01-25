@@ -3,18 +3,20 @@
 @section('content')
 <ul class="m-0 mb-5 p-0 list-none">
     <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
-      <a href="index.html">
+      <a href="{{ route('hobbies.index') }}">
         <iconify-icon icon="heroicons-outline:home"></iconify-icon>
         <iconify-icon icon="heroicons-outline:chevron-right"
           class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
       </a>
     </li>
-    <li class="inline-block relative text-sm text-primary-500 font-Inter ">
+    <a href="{{ route('hobbies.index') }}">
+    <li class="inline-block relative text-sm text-slate-500 font-Inter ">
       Hobby Table
       <iconify-icon icon="heroicons-outline:chevron-right"
         class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
     </li>
-    <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
+</a>
+    <li class="inline-block relative text-sm text-primary-500 font-Inter dark:text-primary-500">
      Create Hobby</li>
   </ul>
 
@@ -31,7 +33,7 @@
             </div>
         @endif
 
-        <form action="{{ route('hobbies.store') }}" method="POST" class="space-y-4 dark:bg-slate-800">
+        <form action="{{ route('hobbies.store') }}" method="POST" class="space-y-4">
             @csrf
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-white">Hobby Name</label>

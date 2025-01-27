@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   {{-- Tailwind CSS --}}
-  @vite('resources/css/app.css')
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   <!-- BEGIN: Theme CSS-->
   <link rel="stylesheet" href="{{asset('assets/css/rt-plugins.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
@@ -81,7 +81,27 @@
          
         </li>
          
-          <!-- Pages Area -->
+          <!-- Javascript Area -->
+          <li class="sidebar-menu-title">Persones & Hobbies With JavaScript</li>
+          <li>
+            <a href="{{ route('javascriptpersones.index') }}" class="navItem">
+                <span class="flex items-center">
+                    <iconify-icon class="nav-icon" icon="heroicons:users"></iconify-icon>
+                    <span>Persones</span>
+                </span>
+            </a>
+         
+        </li>
+
+          <li>
+            <a href="{{ route('javascript.index') }}" class="navItem">
+                <span class="flex items-center">
+                    <iconify-icon class="nav-icon" icon="heroicons:heart"></iconify-icon>
+                    <span>Hobbies</span>
+                </span>
+            </a>
+        </li>
+        
         </ul>
       </div>
     </div>

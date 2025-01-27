@@ -5,6 +5,8 @@ use App\Http\Controllers\HobbyController;
 use App\Http\Controllers\PersonesController;
 use App\Http\Controllers\TelephoneController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JsHobbyController;
+use App\Http\Controllers\JsPersonesController;
 
 Route::get('/', [AuthController::class, 'showRegistrasi'])->name('home');
 
@@ -21,11 +23,25 @@ Route::post('/forgot-password', [AuthController::class, 'processForgotPassword']
 Route::get('/reset-password/{token}', [AuthController::class, 'showForgotPasswordForm'])
      ->name('password.reset');
 
-
-
 Route::middleware(['auth'])->group(function () {
     Route::resource('hobbies', HobbyController::class);
     Route::resource('persones', PersonesController::class);
     Route::resource('telephones', TelephoneController::class);
+
+//  javascript
+    Route::resource('javascript', JsHobbyController::class);
+
+    // Rute untuk resource Person
+    Route::resource('javascriptpersones', JsPersonesController::class);
+    
+    // Rute tambahan untuk Telephone
+    Route::prefix('javascript/telephones')->name('telephones.')->group(function () {
+        Route::post('store', [JsPersonesController::class, 'storeTelephone'])->name('store');
+        Route::get('create', [JsPersonesController::class, 'createTelephone'])->name('create');
+        Route::get('edit/{id}', [JsPersonesController::class, 'editTelephone'])->name('edit');
+        Route::put('update/{id}', [JsPersonesController::class, 'updateTelephone'])->name('update');
+        Route::delete('destroy/{id}', [JsPersonesController::class, 'destroyTelephone'])->name('destroy');
+    });
+    
 });
 

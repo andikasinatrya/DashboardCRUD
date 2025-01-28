@@ -141,4 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 phoneArea.removeChild(lastInput);
             }
         });
+
+    // Image Slider Add More
 });

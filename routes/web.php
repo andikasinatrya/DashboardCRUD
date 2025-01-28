@@ -7,6 +7,8 @@ use App\Http\Controllers\TelephoneController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JsHobbyController;
 use App\Http\Controllers\JsPersonesController;
+use App\Http\Controllers\BlogController;
+
 
 Route::get('/', [AuthController::class, 'showRegistrasi'])->name('home');
 
@@ -43,5 +45,8 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('destroy/{id}', [JsPersonesController::class, 'destroyTelephone'])->name('destroy');
     });
     
+    Route::resource('blog', BlogController::class);
+    Route::post('blog/upload-image', [BlogController::class, 'uploadImage'])->name('blog.uploadImage');
+
 });
 

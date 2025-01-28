@@ -15,6 +15,9 @@
   <!-- BEGIN: Theme CSS-->
   <link rel="stylesheet" href="{{asset('assets/css/rt-plugins.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
+  <!-- Include Summernote CSS and JS -->
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
   <!-- End : Theme CSS-->
   <script src="{{ asset('assets/js/settings.js') }}" sync></script>
 </head>
@@ -101,6 +104,18 @@
                 </span>
             </a>
         </li>
+
+         <!-- Javascript Area -->
+         <li class="sidebar-menu-title">Blog Area</li>
+         <li>
+           <a href="{{ route('blog.index') }}" class="navItem">
+               <span class="flex items-center">
+                   <iconify-icon class="nav-icon" icon="heroicons:users"></iconify-icon>
+                   <span>Blog</span>
+               </span>
+           </a>
+        
+       </li>
         
         </ul>
       </div>
@@ -385,5 +400,32 @@
   <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
   <script src="{{ asset('assets/js/rt-plugins.js') }}"></script>
   <script src="{{ asset('assets/js/app.js') }}"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            height: 300,
+            callbacks: {
+                onImageUpload: function(files) {
+                    var reader = new FileReader();
+                    
+                    reader.onloadend = function () {
+                        var base64Image = reader.result; // base64 string
+                        
+                        // Menyisipkan gambar dalam format base64 ke dalam Summernote
+                        $('.summernote').summernote('insertImage', base64Image);
+                    };
+
+                    // Membaca file gambar sebagai base64
+                    reader.readAsDataURL(files[0]);
+                }
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

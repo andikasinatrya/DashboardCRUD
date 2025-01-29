@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HobbyController;
-use App\Http\Controllers\PersonesController;
-use App\Http\Controllers\TelephoneController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\JsHobbyController;
-use App\Http\Controllers\JsPersonesController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HobbyController;
+use App\Http\Controllers\JsHobbyController;
+use App\Http\Controllers\PersonesController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TelephoneController;
+use App\Http\Controllers\JsPersonesController;
 
 
 Route::get('/', [AuthController::class, 'showRegistrasi'])->name('home');
@@ -47,6 +48,12 @@ Route::middleware(['auth'])->group(function () {
     
     Route::resource('blog', BlogController::class);
     Route::post('blog/upload-image', [BlogController::class, 'uploadImage'])->name('blog.uploadImage');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::get('/dashboard/{blog:slug}', [DashboardController::class, 'show'])->name('dashboard.show');
+
+
 
 });
 

@@ -26,61 +26,56 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'featured_image' => 'required|array|min:1', // Validasi untuk array gambar
-            'featured_image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi tiap gambar
+            'featured_image' => 'required|array|min:1',
+            'featured_image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20048',
+            'slider_image' => 'required|array|min:1',
+            'slider_image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20048',
         ]);
-    
-        // Mengambil konten yang dikirimkan
+
         $content = $request->input('content');
-    
-        // Proses gambar di dalam konten menjadi base64
+
         preg_match_all('/<img src="(.*?)"/', $content, $matches);
-    
+
         if (count($matches[1]) > 0) {
             foreach ($matches[1] as $image) {
-                // Jika gambar berasal dari storage
                 if (Str::startsWith($image, '/storage/')) {
-                    // Path gambar di server
                     $imagePath = storage_path('app/public' . str_replace('/storage', '', $image));
-    
+
                     if (file_exists($imagePath)) {
-                        // Baca gambar dan konversi ke Base64
                         $imageData = base64_encode(file_get_contents($imagePath));
                         $imageBase64 = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base64,' . $imageData;
-    
-                        // Gantikan src gambar dengan Base64
+
                         $content = str_replace($image, $imageBase64, $content);
                     }
                 }
             }
         }
-    
-        // Simpan blog baru
+
         $blog = Blog::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'content' => $content,
         ]);
-    
-        // Simpan gambar thumbnail jika ada
+
         if ($request->hasFile('featured_image')) {
-            $images = [];
+            $featuredImages = [];
             foreach ($request->file('featured_image') as $image) {
-                // Simpan gambar ke folder 'blogs' dan simpan pathnya
-                $images[] = $image->store('blogs', 'public');
+                $featuredImages[] = $image->store('blogs', 'public');
             }
-            // Simpan path gambar dalam bentuk JSON
-            $blog->update([
-                'featured_image' => json_encode($images), // Menggunakan JSON untuk menyimpan array gambar
-            ]);
+            $blog->update(['featured_image' => json_encode($featuredImages)]);
         }
-    
+
+        if ($request->hasFile('slider_image')) {
+            $sliderImages = [];
+            foreach ($request->file('slider_image') as $image) {
+                $sliderImages[] = $image->store('blogs', 'public');
+            }
+            $blog->update(['slider_image' => json_encode($sliderImages)]);
+        }
+
         return redirect()->route('blog.index')->with('success', 'Blog created successfully!');
     }
-    
-    
-    
 
     public function show(Blog $blog)
     {
@@ -88,89 +83,94 @@ class BlogController extends Controller
     }
 
     public function edit(Blog $blog)
-{
-    if ($blog->user_id !== Auth::id()) {
-        return redirect()->route('blog.index')->with('error', 'You are not authorized to edit this blog.');
-    }
-
-    return view('blog.edit', compact('blog'));
-}
-
-public function update(Request $request, Blog $blog)
-{
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'content' => 'required',
-        'featured_image' => 'nullable|array', // Validasi array untuk multiple gambar
-        'featured_image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar individual
-    ]);
-
-    // Mendapatkan gambar lama (jika ada)
-    $oldImages = json_decode($blog->featured_image, true) ?? [];
-
-    // Proses upload gambar baru
-    $newImages = [];
-    if ($request->hasFile('featured_image')) {
-        // Hapus gambar lama yang sudah tidak digunakan lagi
-        foreach ($oldImages as $oldImage) {
-            Storage::delete('public/' . $oldImage);
+    {
+        if ($blog->user_id !== Auth::id()) {
+            return redirect()->route('blog.index')->with('error', 'You are not authorized to edit this blog.');
         }
 
-        // Simpan gambar baru dan masukkan ke dalam array
-        foreach ($request->file('featured_image') as $image) {
-            $imagePath = $image->store('blogs/images', 'public');
-            $newImages[] = $imagePath;
-        }
+        return view('blog.edit', compact('blog'));
     }
 
-    // Update blog dengan gambar baru (atau gambar lama jika tidak ada yang diunggah)
-    $blog->update([
-        'title' => $request->title,
-        'slug' => Str::slug($request->title),
-        'content' => $request->content,
-        'featured_image' => json_encode($newImages), // Menyimpan array gambar dalam format JSON
-    ]);
+    public function update(Request $request, Blog $blog)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required',
+            'featured_image' => 'nullable|array',
+            'featured_image.*' => 'image|mimes:jpeg,png,jpg,gif|max:20048',
+            'slider_image' => 'nullable|array',
+            'slider_image.*' => 'image|mimes:jpeg,png,jpg,gif|max:20048',
+        ]);
 
-    return redirect()->route('blog.index')->with('success', 'Blog updated successfully!');
-}
+        $this->deleteImages($blog);
 
-public function uploadImage(Request $request)
-{
-    $request->validate([
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-
-    $imagePath = $request->file('image')->store('blogs/images', 'public');
-
-    return response()->json([
-        'image_path' => Storage::url($imagePath)
-    ]);
-}
-
-public function destroy(Blog $blog)
-{
-    $featuredImage = $blog->featured_image;
-    
-    if ($featuredImage) {
-        try {
-            Storage::disk('public')->delete($featuredImage);
-        } catch (\Exception $e) {
+        $featuredImages = [];
+        if ($request->hasFile('featured_image')) {
+            foreach ($request->file('featured_image') as $image) {
+                $featuredImages[] = $image->store('blogs/images', 'public');
+            }
         }
+
+        $sliderImages = [];
+        if ($request->hasFile('slider_image')) {
+            foreach ($request->file('slider_image') as $image) {
+                $sliderImages[] = $image->store('blogs/images', 'public');
+            }
+        }
+
+        $blog->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'featured_image' => json_encode($featuredImages),
+            'slider_image' => json_encode($sliderImages),
+        ]);
+
+        return redirect()->route('blog.index')->with('success', 'Blog updated successfully!');
     }
 
-    $oldImages = json_decode($blog->featured_image, true) ?? [];
-    foreach ($oldImages as $image) {
-        try {
-            Storage::disk('public')->delete($image);
-        } catch (\Exception $e) {
-        }
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:20048',
+        ]);
+
+        $imagePath = $request->file('image')->store('blogs/images', 'public');
+
+        return response()->json([
+            'image_path' => Storage::url($imagePath)
+        ]);
     }
 
-    $blog->delete();
+    public function destroy(Blog $blog)
+    {
+        $this->deleteImages($blog);
 
-    return redirect()->route('blog.index')->with('success', 'Blog deleted successfully!');
-}
+        $blog->delete();
 
+        return redirect()->route('blog.index')->with('success', 'Blog deleted successfully!');
+    }
 
+    protected function deleteImages(Blog $blog)
+    {
+        if ($blog->featured_image) {
+            $featuredImages = json_decode($blog->featured_image, true);
+            foreach ($featuredImages as $image) {
+                try {
+                    Storage::disk('public')->delete($image);
+                } catch (\Exception $e) {
+                }
+            }
+        }
 
+        if ($blog->slider_image) {
+            $sliderImages = json_decode($blog->slider_image, true);
+            foreach ($sliderImages as $image) {
+                try {
+                    Storage::disk('public')->delete($image);
+                } catch (\Exception $e) {
+                }
+            }
+        }
+    }
 }

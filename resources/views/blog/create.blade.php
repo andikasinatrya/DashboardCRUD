@@ -30,6 +30,10 @@
             <label for="featured_image">Thumbnail Image</label>
             <input type="file" name="featured_image[]" id="featured_image" class="form-control" multiple>
         </div>        
+        <div class="form-group">
+            <label for="slider_image">Slider Image</label>
+            <input type="file" name="slider_image[]" id="slider_image" class="form-control" multiple>
+        </div>        
 
         <button type="submit" class="btn btn-success">Create Blog</button>
     </form>

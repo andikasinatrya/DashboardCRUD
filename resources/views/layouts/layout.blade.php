@@ -51,15 +51,14 @@
       <div class="sidebar-menus bg-white dark:bg-slate-800 py-2 px-4 h-[calc(100%-80px)] overflow-y-auto z-50" id="sidebar_menus">
         <ul class="sidebar-menu">
 
-          {{-- <li class="">
-            <a href="#" class="navItem">
+          <li class="">
+            <a href="{{ route('dashboard.index') }}" class="navItem">
               <span class="flex items-center">
             <iconify-icon class=" nav-icon" icon="heroicons-outline:home"></iconify-icon>
             <span>Dashboard</span>
               </span>
-              <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
             </a>
-          </li> --}}
+          </li>
 
           <li class="sidebar-menu-title">Person Table</li>
           <li>
@@ -110,7 +109,7 @@
          <li>
            <a href="{{ route('blog.index') }}" class="navItem">
                <span class="flex items-center">
-                   <iconify-icon class="nav-icon" icon="heroicons:users"></iconify-icon>
+                   <iconify-icon class="nav-icon" icon="heroicons:identification"></iconify-icon>
                    <span>Blog</span>
                </span>
            </a>

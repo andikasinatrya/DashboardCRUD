@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->longText('content');
             $table->string('featured_image')->nullable();
+            $table->string('slider_image')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

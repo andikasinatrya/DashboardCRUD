@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -109,4 +110,56 @@ class AuthController extends Controller
             ? redirect()->route('login.show')->with('success', 'Password berhasil direset.')
             : back()->withErrors(['email' => __($status)]);
     }
+
+
+    public function redirectToGoogle() {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback() {
+        try {
+            $googleUser = Socialite::driver('google')->user();
+            $user = User::where('email', $googleUser->getEmail())->first();
+    
+            if (!$user) {
+                $user = User::create([
+                    'name' => $googleUser->getName(),
+                    'email' => $googleUser->getEmail(),
+                    'password' => Hash::make(Str::random(16)),
+                ]);
+            }
+    
+            Auth::login($user);
+            return redirect()->route('persones.index')->with('success', 'Login berhasil!');
+        } catch (\Exception $e) {
+            return redirect()->route('login.show')->with('failed', 'Terjadi kesalahan saat login.');
+        }
+    }
+
+    public function redirectToFacebook() {
+        return Socialite::driver('facebook')->redirect();
+    }
+    
+    public function handleFacebookCallback() {
+        try {
+            $facebookUser = Socialite::driver('facebook')->user();
+            $user = User::where('email', $facebookUser->getEmail())->first();
+            
+            if (!$user) {
+                $user = User::create([
+                    'name' => $facebookUser->getName(),
+                    'email' => $facebookUser->getEmail(),
+                    'password' => Hash::make(Str::random(16)),
+                ]);
+            }
+    
+            Auth::login($user);
+            return redirect()->route('persones.index')->with('success', 'Login berhasil!');
+        } catch (\Exception $e) {
+            return redirect()->route('login.show')->with('failed', 'Terjadi kesalahan saat login.');
+        }
+    }
+    
+    
+
 }

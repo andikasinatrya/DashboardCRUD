@@ -20,6 +20,12 @@ Route::post('/login/submit', [AuthController::class, 'submitLogin'])
      ->name('login.submit')
      ->middleware('throttle:5,1');
 
+     Route::get('auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
+     Route::get('auth/google-callback', [AuthController::class, 'handleGoogleCallback']);
+     Route::get('auth/facebook', [AuthController::class, 'redirectToFacebook'])->name('auth.facebook');
+     Route::get('auth/facebook-callback', [AuthController::class, 'handleFacebookCallback']);
+       
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/forgot-password/{token?}', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'processForgotPassword'])->name('password.process');

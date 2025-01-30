@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="max-w-[300px] mx-auto w-full">
-      <a href="index.html" class="btn btn-dark dark:bg-slate-800 block text-center">
+      <a href="{{ route('login.show') }}" class="btn btn-dark dark:bg-slate-800 block text-center">
         Go to homepage
       </a>
     </div>

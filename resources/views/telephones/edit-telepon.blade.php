@@ -44,11 +44,11 @@
     <form action="{{ route('telephones.update', $telephone->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <input type="hidden" name="person_id" value="{{ $telephone->person_id }}">
+        <input type="hidden" name="person_id" class="h-10 text-lg" value="{{ $telephone->person_id }}">
 
         <div class="mb-4">
             <label for="telephone_number" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor Telepon</label>
-            <input type="text" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="telephone_number" name="telephone_number" value="{{ $telephone->telephone_number }}" required>
+            <input type="text" class="form-input h-10 text-lg mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" id="telephone_number" name="telephone_number" value="{{ $telephone->telephone_number }}" required>
         </div>
 
         <div class="flex space-x-4 mt-6">

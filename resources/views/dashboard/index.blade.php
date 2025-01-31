@@ -12,7 +12,7 @@
             <p class="text-gray-600 text-sm">{{ $blog->created_at->format('M d • H:i') }}</p>
 
             <p class="text-gray-700 mt-2 text-sm">
-                {{ Str::limit(strip_tags($blog->content), 150) }} {{-- Menghapus tag HTML dan membatasi panjang konten --}}
+                {{ Str::limit(strip_tags($blog->content), 150) }}
             </p>
             
             <a href="{{ route('dashboard.show', $blog->slug) }}" class="text-blue-500 hover:text-blue-700 mt-4 block">See More...</a>

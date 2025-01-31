@@ -46,7 +46,7 @@
             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-white">Nama</label>
             <input 
                 type="text" 
-                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                class="form-input h-10 text-lg mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
                 id="name" 
                 name="name" 
                 value="{{ $person->name }}" 
@@ -57,7 +57,7 @@
             <label for="nisn" class="block text-sm font-medium text-gray-700 dark:text-white">NISN</label>
             <input 
                 type="text" 
-                class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                class="form-input mt-1 h-10 text-lg block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
                 id="nisn" 
                 name="nisn" 
                 value="{{ $person->nisn->nisn ?? '' }}" 
@@ -75,7 +75,7 @@
                             value="{{ $hobby->id }}" 
                             id="hobby_{{ $hobby->id }}" 
                             {{ in_array($hobby->id, $person->hobbies->pluck('id')->toArray()) ? 'checked' : '' }} 
-                            class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            class="h-10 text-lg w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                         <label for="hobby_{{ $hobby->id }}" class="ml-2 text-sm text-gray-700 dark:text-white">
                             {{ $hobby->name }}
                         </label>

@@ -20,6 +20,7 @@ Route::post('/login/submit', [AuthController::class, 'submitLogin'])
      ->name('login.submit')
      ->middleware('throttle:5,1');
 
+    //  Login dengan Account
      Route::get('auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
      Route::get('auth/google-callback', [AuthController::class, 'handleGoogleCallback']);
      Route::get('auth/facebook', [AuthController::class, 'redirectToFacebook'])->name('auth.facebook');

@@ -142,5 +142,5 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-    // Cancel Edit Modal
+    // Add Slider
 });

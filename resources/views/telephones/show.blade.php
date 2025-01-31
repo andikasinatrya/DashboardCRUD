@@ -63,14 +63,14 @@
                 <h5 class="text-lg font-semibold mb-4">Tambah Nomor Telepon</h5>
                 <form action="{{ route('telephones.store') }}" method="POST" class="space-y-4">
                     @csrf
-                    <input type="hidden" name="person_id" value="{{ $person->id }}">
+                    <input type="hidden" name="person_id" class="h-10 text-lg" value="{{ $person->id }}">
                     <div>
                         <label for="telephone_number" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor Telepon</label>
                         <input 
                             type="text" 
                             id="telephone_number" 
                             name="telephone_number" 
-                            class="mt-1 block w-full h-10 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                            class="h-10 text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
                             placeholder="Masukkan Nomor Telepon" 
                             required>
                     </div>

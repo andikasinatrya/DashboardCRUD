@@ -47,7 +47,7 @@
                         <div class="flex gap-4">
                             @foreach($images as $image)
                                 <div class="relative w-32 h-32 border rounded-lg overflow-hidden">
-                                    <img src="{{ Storage::url($image) }}" alt="Current Thumbnail" class="w-full h-full object-cover">
+                                    <img src="{{ asset('storage/' . $image) }}" class="w-full h-full object-cover">
                                     <button type="button" class="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-700 rounded-full text-sm p-1" onclick="removeImage('{{ $image }}')">
                                         <i class="fas fa-times"></i>
                                     </button>
@@ -71,7 +71,7 @@
                         <div class="flex gap-4">
                             @foreach($images as $image)
                                 <div class="relative w-32 h-32 border rounded-lg overflow-hidden">
-                                    <img src="{{ Storage::url($image) }}" alt="Current Sliders" class="w-full h-full object-cover">
+                                    <img src="{{ asset('storage/' . $image) }}" class="w-full h-full object-cover">
                                     <button type="button" class="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-700 rounded-full text-sm p-1" onclick="removeImage('{{ $image }}')">
                                         <i class="fas fa-times"></i>
                                     </button>

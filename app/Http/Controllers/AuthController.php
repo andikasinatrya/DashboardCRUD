@@ -111,14 +111,16 @@ class AuthController extends Controller
             : back()->withErrors(['email' => __($status)]);
     }
 
+    // Tombol Login Google Dan Facebook
 
     public function redirectToGoogle() {
         return Socialite::driver('google')->redirect();
     }
-
+    
     public function handleGoogleCallback() {
         try {
             $googleUser = Socialite::driver('google')->user();
+    
             $user = User::where('email', $googleUser->getEmail())->first();
     
             if (!$user) {
@@ -130,9 +132,10 @@ class AuthController extends Controller
             }
     
             Auth::login($user);
-            return redirect()->route('persones.index')->with('success', 'Login berhasil!');
+    
+            return redirect()->route('persones.index');
         } catch (\Exception $e) {
-            return redirect()->route('login.show')->with('failed', 'Terjadi kesalahan saat login.');
+            return redirect('/login')->with('failed', 'Terjadi kesalahan saat login.');
         }
     }
 
@@ -143,8 +146,9 @@ class AuthController extends Controller
     public function handleFacebookCallback() {
         try {
             $facebookUser = Socialite::driver('facebook')->user();
+    
             $user = User::where('email', $facebookUser->getEmail())->first();
-            
+    
             if (!$user) {
                 $user = User::create([
                     'name' => $facebookUser->getName(),
@@ -154,12 +158,11 @@ class AuthController extends Controller
             }
     
             Auth::login($user);
-            return redirect()->route('persones.index')->with('success', 'Login berhasil!');
+    
+            return redirect()->route('persones.index');
         } catch (\Exception $e) {
-            return redirect()->route('login.show')->with('failed', 'Terjadi kesalahan saat login.');
+            return redirect('/login')->with('failed', 'Terjadi kesalahan saat login.');
         }
     }
-    
-    
 
 }

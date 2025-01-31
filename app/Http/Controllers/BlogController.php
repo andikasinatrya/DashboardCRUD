@@ -26,7 +26,7 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'featured_image' => 'required|array|min:1',
+            'featured_image' => 'required|array|max:1',
             'featured_image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20048',
             'slider_image' => 'required|array|min:1',
             'slider_image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:20048',
@@ -96,28 +96,31 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
-            'featured_image' => 'nullable|array',
+            'featured_image' => 'array|max:1',
             'featured_image.*' => 'image|mimes:jpeg,png,jpg,gif|max:20048',
             'slider_image' => 'nullable|array',
             'slider_image.*' => 'image|mimes:jpeg,png,jpg,gif|max:20048',
         ]);
-
-        $this->deleteImages($blog);
-
-        $featuredImages = [];
+    
+        $featuredImages = json_decode($blog->featured_image, true) ?? [];
+        $sliderImages = json_decode($blog->slider_image, true) ?? [];
+    
         if ($request->hasFile('featured_image')) {
+            $this->deleteImages($blog, 'featured_image');
+            $featuredImages = [];
             foreach ($request->file('featured_image') as $image) {
                 $featuredImages[] = $image->store('blogs/images', 'public');
             }
         }
-
-        $sliderImages = [];
+    
         if ($request->hasFile('slider_image')) {
+            $this->deleteImages($blog, 'slider_image');
+            $sliderImages = [];
             foreach ($request->file('slider_image') as $image) {
                 $sliderImages[] = $image->store('blogs/images', 'public');
             }
         }
-
+    
         $blog->update([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
@@ -125,22 +128,11 @@ class BlogController extends Controller
             'featured_image' => json_encode($featuredImages),
             'slider_image' => json_encode($sliderImages),
         ]);
-
+    
         return redirect()->route('blog.index')->with('success', 'Blog updated successfully!');
     }
-
-    public function uploadImage(Request $request)
-    {
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:20048',
-        ]);
-
-        $imagePath = $request->file('image')->store('blogs/images', 'public');
-
-        return response()->json([
-            'image_path' => Storage::url($imagePath)
-        ]);
-    }
+    
+    
 
     public function destroy(Blog $blog)
     {
@@ -173,4 +165,5 @@ class BlogController extends Controller
             }
         }
     }
+    
 }

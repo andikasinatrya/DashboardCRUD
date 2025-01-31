@@ -38,7 +38,7 @@
             @method('PUT')
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-white">Hobby Name</label>
-                <input type="text" id="name" name="name" value="{{ $hobby->name }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                <input type="text" id="name" name="name" value="{{ $hobby->name }}" class="h-10 text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
             </div>
             <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700">
                 Update

@@ -46,7 +46,7 @@
                     id="name" 
                     name="name" 
                     value="{{ old('name') }}" 
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                    class="h-10 text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
                     placeholder="Masukkan Nama" 
                     required>
             </div>
@@ -57,7 +57,7 @@
                     id="nisn" 
                     name="nisn" 
                     value="{{ old('nisn') }}" 
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                    class="h-10 text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
                     placeholder="Masukkan NISN" 
                     required>
             </div>
@@ -75,7 +75,7 @@
                     id="telephone_number" 
                     name="telephone_number[]" 
                     value="{{ old('telephone_number.0') }}" 
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                    class="h-10 text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
                     placeholder="Masukkan Nomor Telepon" 
                     required>
             </div>
@@ -87,7 +87,7 @@
                             type="text" 
                             name="telephone_number[]" 
                             value="{{ $telephone }}" 
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                            class="h-10 text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
                             placeholder="Masukkan Nomor Telepon" 
                             required>
                     @endforeach
@@ -105,7 +105,7 @@
                                 value="{{ $hobby->id }}" 
                                 id="hobby_{{ $hobby->id }}" 
                                 {{ in_array($hobby->id, old('hobbies', [])) ? 'checked' : '' }} 
-                                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                class="h-10 text-lg w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                             <label for="hobby_{{ $hobby->id }}" class="ml-2 text-sm dark:text-white text-gray-700">
                                 {{ $hobby->name }}
                             </label>

@@ -61,38 +61,47 @@
                     placeholder="Masukkan NISN" 
                     required>
             </div>
-
-            <div>
-                <label for="telephone_number" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor Telepon</label>
-                <button type="button" id="add-phone" class="ml-2 bg-green-500 hover:bg-green-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200">
-                    +
-                </button>
-                <button type="button" id="remove-phone" class="ml-2 bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-200">
-                    -
-                </button>
-                <input 
-                    type="text" 
-                    id="telephone_number" 
-                    name="telephone_number[]" 
-                    value="{{ old('telephone_number.0') }}" 
-                    class="h-10 text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
-                    placeholder="Masukkan Nomor Telepon" 
-                    required>
-            </div>
             
-            <div id="phone-area" class="mt-2">
-                @if (old('telephone_number'))
-                    @foreach (array_slice(old('telephone_number'), 1) as $index => $telephone)
-                        <input 
-                            type="text" 
-                            name="telephone_number[]" 
-                            value="{{ $telephone }}" 
-                            class="h-10 text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
-                            placeholder="Masukkan Nomor Telepon" 
-                            required>
-                    @endforeach
-                @endif
-            </div>
+                    <h2 class="text-xl font-bold mb-4">Tambah Nomor Telepon</h2>
+            
+                    <div class="form-group">
+                        <label for="telephone_number" class="block text-sm font-medium text-gray-700 dark:text-white">Nomor Telepon</label>
+                        
+                        <div id="phone-area" class="mt-2">
+                            <div class="input-group flex items-center gap-2 w-full">
+                                <input type="text" name="telephone_number[]" class="form-control h-10 text-lg w-full" style="width: 50rem" placeholder="Masukkan Nomor Telepon" required>
+                                <button type="button" id="add-phone" class="ml-2 bg-green-500 hover:bg-green-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200">+</button>
+                            </div>
+                        </div>
+                    </div>
+            
+            <script>
+                document.getElementById("add-phone").addEventListener("click", function () {
+                    const wrapper = document.createElement("div");
+                    wrapper.classList.add("input-group", "flex", "items-center", "gap-2", "mt-2", "w-full");
+                    
+                    const newInput = document.createElement("input");
+                    newInput.type = "text";
+                    newInput.name = "telephone_number[]";
+                    newInput.classList.add("form-control", "h-10", "text-lg");
+                    newInput.style.width = "50rem";
+                    newInput.placeholder = "Masukkan Nomor Telepon";
+                    newInput.required = true;
+                    
+                    const removeButton = document.createElement("button");
+                    removeButton.type = "button";
+                    removeButton.classList.add("remove-phone", "bg-red-500", "hover:bg-red-600", "text-white", "rounded", "px-4", "py-2", "text-xl", "focus:outline-none", "focus:ring-2", "focus:ring-red-400", "transition", "duration-200");
+                    removeButton.textContent = "-";
+                    removeButton.addEventListener("click", function () {
+                        wrapper.remove();
+                    });
+            
+                    wrapper.appendChild(newInput);
+                    wrapper.appendChild(removeButton);
+                    document.getElementById("phone-area").appendChild(wrapper);
+                });
+            </script>
+            
 
             <div>
                 <h3 class="text-sm font-medium text-gray-700 mb-2 dark:text-white">Pilih Hobi:</h3>

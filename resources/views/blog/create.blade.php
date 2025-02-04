@@ -30,40 +30,50 @@
             <label for="featured_image">Thumbnail Image</label>
             <input type="file" name="featured_image[]" id="featured_image h-10 text-lg" class="form-control" multiple>
         </div>        
-        <div class="form-group">
-            <label for="slider_image">Slider Image</label>
-            {{-- <button type="button" id="add-slider" class="ml-2 bg-green-500 hover:bg-green-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200">
-                +
-            </button>
-            <button type="button" id="remove-slider" class="ml-2 bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-200">
-                -
-            </button> --}}
-            <div id="slider-area" class="mt-2">
-                <input type="file" name="slider_image[]" id="slider_image" class="form-control h-10 text-lg" multiple>
+        <div class="container mx-auto p-6">
+            <div class="bg-white shadow-lg rounded-lg p-6 dark:bg-slate-800">
+                <h2 class="text-xl font-bold mb-4">Tambah Gambar Slider</h2>
+        
+                <div class="form-group">
+                    <label for="slider_image" class="block text-sm font-medium text-gray-700 dark:text-white">Gambar Slider</label>
+                 
+                    <div id="slider-area" class="mt-2">
+                        <div class="input-group flex items-center gap-2 w-full">
+                            <input type="file" name="slider_image[]" class="form-control h-10 text-lg w-full" style="width: 50rem">
+                            <button type="button" id="add-slider" class="ml-2 bg-green-500 hover:bg-green-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
-        {{-- <script>
+        <script>
             document.getElementById("add-slider").addEventListener("click", function () {
+                const wrapper = document.createElement("div");
+                wrapper.classList.add("input-group", "flex", "items-center", "gap-2", "mt-2", "w-full");
+                
                 const newInput = document.createElement("input");
                 newInput.type = "file";
                 newInput.name = "slider_image[]";
                 newInput.classList.add("form-control", "h-10", "text-lg");
-                newInput.setAttribute("multiple", true);
+                newInput.style.width = "50rem";
+                
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.classList.add("remove-slider", "bg-red-500", "hover:bg-red-600", "text-white", "rounded", "px-4", "py-2", "text-xl", "focus:outline-none", "focus:ring-2", "focus:ring-red-400", "transition", "duration-200");
+                removeButton.textContent = "-";
+                removeButton.addEventListener("click", function () {
+                    wrapper.remove();
+                });
         
-                document.getElementById("slider-area").appendChild(newInput);
+                wrapper.appendChild(newInput);
+                wrapper.appendChild(removeButton);
+                document.getElementById("slider-area").appendChild(wrapper);
             });
-        
-            document.getElementById("remove-slider").addEventListener("click", function () {
-                const inputs = document.querySelectorAll('input[name="slider_image[]"]');
-        
-                if (inputs.length > 1) {
-                    inputs[inputs.length - 1].remove();
-                }
-            });
-        </script> --}}
+        </script>  
                
-
         <button type="submit" class="btn btn-success">Create Blog</button>
     </form>
 </div>

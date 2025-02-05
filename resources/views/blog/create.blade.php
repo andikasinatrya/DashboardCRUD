@@ -39,7 +39,7 @@
                  
                     <div id="slider-area" class="mt-2">
                         <div class="input-group flex items-center gap-2 w-full">
-                            <input type="file" name="slider_image[]" class="form-control h-10 text-lg w-full" style="width: 50rem">
+                            <input type="file" name="slider_image[]" class="form-control h-10 text-lg w-full" style="width: 60rem">
                             <button type="button" id="add-slider" class="ml-2 bg-green-500 hover:bg-green-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200">
                                 +
                             </button>
@@ -58,7 +58,7 @@
                 newInput.type = "file";
                 newInput.name = "slider_image[]";
                 newInput.classList.add("form-control", "h-10", "text-lg");
-                newInput.style.width = "50rem";
+                newInput.style.width = "60rem";
                 
                 const removeButton = document.createElement("button");
                 removeButton.type = "button";

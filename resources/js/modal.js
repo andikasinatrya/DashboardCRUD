@@ -83,6 +83,4 @@ document.addEventListener("DOMContentLoaded", () => {
             deleteForm.submit();
         });
     });
-
-    // Add Slider
 });

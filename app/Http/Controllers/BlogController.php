@@ -102,20 +102,33 @@ class BlogController extends Controller
             'slider_image.*' => 'image|mimes:jpeg,png,jpg,gif|max:20048',
         ]);
     
-        $featuredImages = json_decode($blog->featured_image, true) ?? [];
-        $sliderImages = json_decode($blog->slider_image, true) ?? [];
+        $featuredImages = json_decode($blog->featured_image, true);
+        $featuredImages = is_array($featuredImages) ? $featuredImages : [];
+    
+        $sliderImages = json_decode($blog->slider_image, true);
+        $sliderImages = is_array($sliderImages) ? $sliderImages : [];
+    
+        if ($request->has('deleted_images')) {
+            $deletedImages = json_decode($request->deleted_images, true);
+            
+            if (is_array($deletedImages)) {
+                foreach ($deletedImages as $image) {
+                    Storage::delete('public/' . $image);
+                }
+                $sliderImages = array_values(array_diff($sliderImages, $deletedImages));
+            }
+        }
     
         if ($request->hasFile('featured_image')) {
             $this->deleteImages($blog, 'featured_image');
             $featuredImages = [];
+    
             foreach ($request->file('featured_image') as $image) {
                 $featuredImages[] = $image->store('blogs/images', 'public');
             }
         }
     
         if ($request->hasFile('slider_image')) {
-            $this->deleteImages($blog, 'slider_image');
-            $sliderImages = [];
             foreach ($request->file('slider_image') as $image) {
                 $sliderImages[] = $image->store('blogs/images', 'public');
             }
@@ -126,14 +139,12 @@ class BlogController extends Controller
             'slug' => Str::slug($request->title),
             'content' => $request->content,
             'featured_image' => json_encode($featuredImages),
-            'slider_image' => json_encode($sliderImages),
+            'slider_image' => json_encode(array_values($sliderImages)),
         ]);
     
         return redirect()->route('blog.index')->with('success', 'Blog updated successfully!');
     }
     
-    
-
     public function destroy(Blog $blog)
     {
         $this->deleteImages($blog);

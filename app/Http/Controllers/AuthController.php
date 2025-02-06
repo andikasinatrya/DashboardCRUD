@@ -61,7 +61,7 @@ class AuthController extends Controller
         }
 
         $request->session()->regenerate();
-        return redirect()->route('persones.index');
+        return redirect()->route('dashboard.index');
     }
 
     public function logout(Request $request) {
@@ -133,7 +133,7 @@ class AuthController extends Controller
     
             Auth::login($user);
     
-            return redirect()->route('persones.index');
+            return redirect()->route('dashboard.index');
         } catch (\Exception $e) {
             return redirect('/login')->with('failed', 'Terjadi kesalahan saat login.');
         }
@@ -159,7 +159,7 @@ class AuthController extends Controller
     
             Auth::login($user);
     
-            return redirect()->route('persones.index');
+            return redirect()->route('dashboard.index');
         } catch (\Exception $e) {
             return redirect('/login')->with('failed', 'Terjadi kesalahan saat login.');
         }

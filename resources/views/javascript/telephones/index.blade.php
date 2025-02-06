@@ -26,7 +26,7 @@
             <table class="min-w-full divide-y divide-slate-300 table-fixed dark:divide-slate-700 data-table">
                 <thead class="bg-slate-200 dark:bg-slate-700">
                     <tr>
-                        <th class="table-th">#</th>
+                        <th class="table-th">ID</th>
                         <th class="table-th">Nama</th>
                         <th class="table-th">NISN</th>
                         <th class="table-th">Hobi</th>
@@ -75,9 +75,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="6" class="table-td text-center text-gray-500">Tidak ada data tersedia</td>
-                        </tr>
+                      
                     @endforelse
                 </tbody>
             </table>

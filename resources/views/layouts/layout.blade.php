@@ -51,71 +51,104 @@
       <div class="sidebar-menus bg-white dark:bg-slate-800 py-2 px-4 h-[calc(100%-80px)] overflow-y-auto z-50" id="sidebar_menus">
         <ul class="sidebar-menu">
 
-          <li class="">
-            <a href="{{ route('dashboard.index') }}" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:home"></iconify-icon>
-            <span>Dashboard</span>
-              </span>
-            </a>
-          </li>
-
-          <li class="sidebar-menu-title">Person Table</li>
-          <li>
-            <a href="{{ route('persones.index') }}" class="navItem">
-                <span class="flex items-center">
-                    <iconify-icon class="nav-icon" icon="heroicons:user"></iconify-icon>
-                    <span>Persones</span>
-                </span>
-            </a>
-          
-        </li>
-          <!-- Apps Area -->
-          <li class="sidebar-menu-title">Hobbies Table</li>
+            <!-- Dashboard - Always Visible -->
+            @can('view dashboard')
+            <li class="">
+                <a href="{{ route('dashboard.index') }}" class="navItem">
+                    <span class="flex items-center">
+                        <iconify-icon class="nav-icon" icon="heroicons-outline:home"></iconify-icon>
+                        <span>Dashboard</span>
+                    </span>
+                </a>
+            </li>
+        @endcan
+            <!-- Person Table - Only visible if the user has permission -->
+            @can('view-persones')
+                <li class="sidebar-menu-title">Person Table</li>
+                <li>
+                    <a href="{{ route('persones.index') }}" class="navItem">
+                        <span class="flex items-center">
+                            <iconify-icon class="nav-icon" icon="heroicons:user"></iconify-icon>
+                            <span>Persones</span>
+                        </span>
+                    </a>
+                </li>
+            @endcan
         
-          <li>
-            <a href="{{ route('hobbies.index') }}" class="navItem">
-                <span class="flex items-center">
-                    <iconify-icon class="nav-icon" icon="heroicons:rectangle-stack"></iconify-icon>
-                    <span>Hobbies</span>
-                </span>
-            </a>
-         
-        </li>
-         
-          <!-- Javascript Area -->
-          <li class="sidebar-menu-title">Persones & Hobbies With JavaScript</li>
-          <li>
-            <a href="{{ route('javascriptpersones.index') }}" class="navItem">
-                <span class="flex items-center">
-                    <iconify-icon class="nav-icon" icon="heroicons:users"></iconify-icon>
-                    <span>Persones</span>
-                </span>
-            </a>
-         
-        </li>
-
-          <li>
-            <a href="{{ route('javascript.index') }}" class="navItem">
-                <span class="flex items-center">
-                    <iconify-icon class="nav-icon" icon="heroicons:heart"></iconify-icon>
-                    <span>Hobbies</span>
-                </span>
-            </a>
-        </li>
-
-         <!-- Javascript Area -->
-         <li class="sidebar-menu-title">Blog Area</li>
-         <li>
-           <a href="{{ route('blog.index') }}" class="navItem">
-               <span class="flex items-center">
-                   <iconify-icon class="nav-icon" icon="heroicons:identification"></iconify-icon>
-                   <span>Blog</span>
-               </span>
-           </a>
+            <!-- Hobbies Table - Only visible if the user has permission -->
+            @can('view-hobbies')
+                <li class="sidebar-menu-title">Hobbies Table</li>
+                <li>
+                    <a href="{{ route('hobbies.index') }}" class="navItem">
+                        <span class="flex items-center">
+                            <iconify-icon class="nav-icon" icon="heroicons:rectangle-stack"></iconify-icon>
+                            <span>Hobbies</span>
+                        </span>
+                    </a>
+                </li>
+            @endcan
         
-       </li>
+            <!-- Persones & Hobbies with JavaScript - Only visible if the user has permission -->
+            @can('view-javascript-persones')
+                <li class="sidebar-menu-title">Persones & Hobbies With JavaScript</li>
+                <li>
+                    <a href="{{ route('javascriptpersones.index') }}" class="navItem">
+                        <span class="flex items-center">
+                            <iconify-icon class="nav-icon" icon="heroicons:users"></iconify-icon>
+                            <span>Persones</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('javascript.index') }}" class="navItem">
+                        <span class="flex items-center">
+                            <iconify-icon class="nav-icon" icon="heroicons:heart"></iconify-icon>
+                            <span>Hobbies</span>
+                        </span>
+                    </a>
+                </li>
+            @endcan
         
+            <!-- Blog Area - Always Visible (or can be restricted based on permission) -->
+            @can('view-blog')
+                <li class="sidebar-menu-title">Blog Area</li>
+                <li>
+                    <a href="{{ route('blog.index') }}" class="navItem">
+                        <span class="flex items-center">
+                            <iconify-icon class="nav-icon" icon="heroicons:identification"></iconify-icon>
+                            <span>Blog</span>
+                        </span>
+                    </a>
+                </li>
+            @endcan
+        
+            <!-- Users Area - Only visible if the user has permission -->
+            @can('view-users')
+                <li class="sidebar-menu-title">Users Area</li>
+                <li>
+                    <a href="{{ route('users.index') }}" class="navItem">
+                        <span class="flex items-center">
+                            <iconify-icon class="nav-icon" icon="heroicons:identification"></iconify-icon>
+                            <span>Users</span>
+                        </span>
+                    </a>
+                </li>
+            @endcan
+        
+            <!-- Roles Area - Only visible if the user has permission -->
+            @can('view-roles')
+                <li class="sidebar-menu-title">Roles Area</li>
+                <li>
+                    <a href="{{ route('roles.index') }}" class="navItem">
+                        <span class="flex items-center">
+                            <iconify-icon class="nav-icon" icon="heroicons:identification"></iconify-icon>
+                            <span>Role</span>
+                        </span>
+                    </a>
+                </li>
+            @endcan
+              
+         
         </ul>
       </div>
     </div>
@@ -412,13 +445,11 @@
                     var reader = new FileReader();
                     
                     reader.onloadend = function () {
-                        var base64Image = reader.result; // base64 string
+                        var base64Image = reader.result;
                         
-                        // Menyisipkan gambar dalam format base64 ke dalam Summernote
                         $('.summernote').summernote('insertImage', base64Image);
                     };
 
-                    // Membaca file gambar sebagai base64
                     reader.readAsDataURL(files[0]);
                 }
             }

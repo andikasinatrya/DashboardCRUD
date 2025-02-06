@@ -64,19 +64,21 @@
             <button type="button" id="add-phone" class="ml-2 bg-green-500 hover:bg-green-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200">
                 +
             </button>
-            <button type="button" id="remove-phone" class="ml-2 bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-200">
-                -
-            </button>
+        
             @foreach ($person->telephones as $phone)
-                <input 
-                    type="text" 
-                    name="telephone_number[]" 
-                    value="{{ $phone->telephone_number }}" 
-                    class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
-                    required>
+                <div class="phone-input-wrapper mt-2 flex items-center gap-2">
+                    <input 
+                        type="text" 
+                        name="telephone_number[]" 
+                        value="{{ $phone->telephone_number }}" 
+                        class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                        required>
+                    <button type="button" class="remove-phone bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 text-xl focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-200">
+                        -
+                    </button>
+                </div>
             @endforeach
-            <div id="phone-area" class="mt-2">
-            </div>
+            <div id="phone-area" class="mt-2"></div>
         </div>
 
         <div class="mb-4">
@@ -105,5 +107,38 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.getElementById("add-phone").addEventListener("click", function () {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("phone-input-wrapper", "mt-2", "flex", "items-center", "gap-2");
+        
+        const newInput = document.createElement("input");
+        newInput.type = "text";
+        newInput.name = "telephone_number[]";
+        newInput.classList.add("mt-2", "block", "w-full", "rounded-md", "border-gray-300", "shadow-sm", "focus:ring-blue-500", "focus:border-blue-500");
+        newInput.placeholder = "Masukkan Nomor Telepon";
+        newInput.required = true;
+        
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.classList.add("remove-phone", "bg-red-500", "hover:bg-red-600", "text-white", "rounded", "px-4", "py-2", "text-xl", "focus:outline-none", "focus:ring-2", "focus:ring-red-400", "transition", "duration-200");
+        removeButton.textContent = "-";
+        removeButton.addEventListener("click", function () {
+            wrapper.remove();
+        });
+        
+        wrapper.appendChild(newInput);
+        wrapper.appendChild(removeButton);
+        document.getElementById("phone-area").appendChild(wrapper);
+    });
+
+    // Remove phone input on click
+    document.querySelectorAll(".remove-phone").forEach(function (button) {
+        button.addEventListener("click", function () {
+            button.closest(".phone-input-wrapper").remove();
+        });
+    });
+</script>
 
 @endsection

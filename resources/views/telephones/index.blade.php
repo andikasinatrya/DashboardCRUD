@@ -49,9 +49,9 @@
                                     </td>
                                     <td class="table-td text-center">
                                         <div class="flex space-x-3 rtl:space-x-reverse">
-                                            <a href="{{ route('persones.show', $person->id) }}" class="action-btn">
+                                            {{-- <a href="{{ route('persones.show', $person->id) }}" class="action-btn">
                                                 <iconify-icon icon="heroicons:eye"></iconify-icon>
-                                            </a>
+                                            </a> --}}
                                             <a href="{{ route('persones.edit', $person->id) }}" class="action-btn">
                                                 <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
                                             </a>

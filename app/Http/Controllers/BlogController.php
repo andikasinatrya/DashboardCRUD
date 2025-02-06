@@ -77,11 +77,6 @@ class BlogController extends Controller
         return redirect()->route('blog.index')->with('success', 'Blog created successfully!');
     }
 
-    public function show(Blog $blog)
-    {
-        return view('blog.show', compact('blog'));
-    }
-
     public function edit(Blog $blog)
     {
         if ($blog->user_id !== Auth::id()) {
